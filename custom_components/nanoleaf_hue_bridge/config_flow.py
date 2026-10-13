@@ -1,7 +1,6 @@
 """Configure a bridge and reauthenticate a revoked token from the UI."""
 import voluptuous as vol
-import ipaddress
-import uuid
+from .discovery import discovered_bridge
 from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers import selector
@@ -10,17 +9,12 @@ from .const import DOMAIN,CONF_URL,CONF_TOKEN
 class ConfigFlow(config_entries.ConfigFlow,domain=DOMAIN):
     VERSION=1
     async def async_step_zeroconf(self,discovery_info):
-        try:
-            identity=str(uuid.UUID(discovery_info.properties['id']))
-            if discovery_info.properties.get('api')!='1':raise ValueError()
-            host=ipaddress.IPv4Address(str(getattr(discovery_info,'ip_address',None) or discovery_info.host))
-            port=discovery_info.port
-            if not host.is_private or host.is_loopback or host.is_multicast or host.is_unspecified or type(port) is not int or not 1<=port<=65535:raise ValueError()
+        try:identity,url=discovered_bridge(discovery_info)
         except (KeyError,ValueError,TypeError,AttributeError):return self.async_abort(reason='invalid_discovery')
         await self.async_set_unique_id(identity)
         # Discovery never redirects an already-configured client or its token.
         self._abort_if_unique_id_configured()
-        self._discovered_url=f'http://{host}:{port}'
+        self._discovered_url=url
         self._discovered_id=identity
         return await self.async_step_zeroconf_confirm()
     async def async_step_zeroconf_confirm(self,user_input=None):
