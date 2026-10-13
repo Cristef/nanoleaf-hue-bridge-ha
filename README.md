@@ -5,7 +5,7 @@ Experimental custom integration for the standalone [Nanoleaf Hue Bridge](https:/
 ## Requirements
 
 - Home Assistant 2025.12 or newer.
-- A bridge deployment with automation API v1 (introduced after bridge 4.1.0; **4.1.0 alone is not compatible**).
+- Nanoleaf Hue Bridge **4.2.0 or newer**, with automation API v1. Bridge 4.1.0 alone is not compatible.
 - Local network access from Home Assistant to the bridge on HTTP port 80 or 8080. VLAN routing/firewall rules must permit it.
 - A dedicated automation token created in the bridge portal. No HomeKit code, Hue credentials or portal password is needed.
 
