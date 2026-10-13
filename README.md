@@ -1,54 +1,61 @@
 # Nanoleaf Hue Bridge for Home Assistant
 
-Experimental custom integration for the standalone [Nanoleaf Hue Bridge](https://github.com/Cristef/nanoleaf-hue-bridge). It controls the Debian bridge; it does not run Sync+ or Hue Entertainment inside Home Assistant.
+Control [Nanoleaf Hue Bridge](https://github.com/Cristef/nanoleaf-hue-bridge) from Home Assistant. This integration adds synchronization, brightness and profile controls, along with sensors for the stream status and incoming Sync+ frames.
 
-## Integration preview
+The bridge continues running on Debian. Home Assistant connects to its local API, so you can add dashboard controls and automations while the bridge handles the color stream.
 
-The device page groups the three controls—global brightness, saved profile and synchronization—with the stream-status and recent-frame sensors. This screenshot shows a working Sync+ → Hue Entertainment stream on the Home Assistant OS test installation.
-
-![Nanoleaf Hue Bridge controls and sensors in Home Assistant](docs/images/home-assistant-controls.png)
-
-Home Assistant's surrounding interface follows your selected language (Italian in this example); the integration's entity names are English. The firmware shown belongs to the development bridge used for validation; public installations require bridge 4.2.0 or newer. The example profile name and activity history reflect that test installation.
+![Nanoleaf Hue Bridge in Home Assistant](docs/images/home-assistant-controls.png)
 
 ## Requirements
 
 - Home Assistant 2025.12 or newer.
-- Nanoleaf Hue Bridge **4.2.0 or newer**, with automation API v1. Bridge 4.1.0 alone is not compatible.
-- Local network access from Home Assistant to the bridge on HTTP port 80 or 8080. VLAN routing/firewall rules must permit it.
-- A dedicated automation token created in the bridge portal. No HomeKit code, Hue credentials or portal password is needed.
+- Nanoleaf Hue Bridge 4.2.0 or newer.
+- Network access from Home Assistant to the bridge on HTTP port 80 or 8080.
+
+The integration has been tested on Home Assistant OS. Install the standalone bridge first if you have not already set it up.
 
 ## Install with HACS
 
-Add `https://github.com/Cristef/nanoleaf-hue-bridge-ha` as a **custom repository**, category **Integration**. Download, restart Home Assistant, then go to Settings → Devices & services → Add integration → Nanoleaf Hue Bridge.
+1. Open HACS and add `https://github.com/Cristef/nanoleaf-hue-bridge-ha` as a **custom repository**, with **Integration** as the category.
+2. Download the integration and restart Home Assistant.
+3. Go to **Settings → Devices & services → Add integration** and search for **Nanoleaf Hue Bridge**.
 
-This is not included in the default HACS catalogue.
+For manual installation, copy `custom_components/nanoleaf_hue_bridge` into Home Assistant's `/config/custom_components/` directory and restart.
 
-For manual installation, copy `custom_components/nanoleaf_hue_bridge` to `/config/custom_components/nanoleaf_hue_bridge` and restart Home Assistant.
+## Connect the bridge
 
-## Connect
+Open the bridge portal and go to **Setup → Home Assistant integration**. Create a token and copy it into the Home Assistant setup form, together with the bridge URL.
 
-In the bridge portal, open Setup → Home Assistant integration → Create token. Copy the token when displayed: it is never shown again. In Home Assistant enter the bridge URL (for example `http://nanoleaf-hue.local` or `http://BRIDGE_IP:8080`) and that token. On routed VLANs use the IP if mDNS does not resolve. No automatic discovery is implemented in 0.1.0.
+Use `http://nanoleaf-hue.local` or `http://BRIDGE_IP:8080`. The IP address is usually the simpler option when Home Assistant and the bridge are on different VLANs. Make sure your firewall allows the connection.
 
-Screenshot from an isolated demonstration (no real tokens or device addresses):
+The token is displayed only when you create it. You can revoke it from the portal and create a replacement when needed. Home Assistant supports reauthentication, and **Reconfigure** lets you change the bridge address.
 
-![Token management in the bridge portal](portal-token-setup.png)
+![Creating and revoking automation tokens](portal-token-setup.png)
 
-## Entities
+## Controls and sensors
 
-- **Synchronization** switch: enables/disables the virtual receiver. Enabled without incoming frames is normal.
-- **Stream status**: Off, Waiting, Streaming, Error or Unavailable.
-- **Profile** selector: applies an existing saved portal profile. It is unknown when current settings no longer match any saved profile; matching duplicates resolve to the first saved profile.
-- **Global brightness** slider: 0–100%, preserving individual light brightness.
-- **Sync+ frames arriving** binary sensor: recent frames, not proof of device connectivity.
+| Entity | Function |
+| --- | --- |
+| Synchronization | Enables or disables the virtual receiver. |
+| Global brightness | Sets output brightness from 0–100%, keeping individual light levels. |
+| Profile | Applies a profile saved in the bridge portal. |
+| Stream status | Reports Off, Waiting, Streaming, Error or Unavailable. |
+| Sync+ frames arriving | Indicates whether recent color frames are reaching the bridge. |
 
-State is polled once every five seconds for all entities. Commands update the shared state immediately. Stopping streaming releases Hue Entertainment; it does not restore a previous scene or turn the bulbs off. This integration does not duplicate your Hue lights or alter source placement/pairing.
+For example, an automation can enable synchronization when the TV turns on, apply a Cinema profile, or reduce brightness in the evening. Your existing Hue integration remains available for normal light control.
 
-Revoke tokens in the portal. Home Assistant will request reauthentication. Use Reconfigure to update the bridge address or token. Tokens are stored in Home Assistant's configuration: protect its backups. HTTP is unencrypted and intended only for a trusted LAN; do not forward these ports to the Internet. Tokens cannot administer accounts, pair devices, install updates or modify mappings.
+State updates every five seconds. Commands update the controls immediately. Turning synchronization off releases Hue Entertainment; the bulbs remain on with their last color.
 
-## Validation status
+## Local API
 
-Initial experimental version. Validated on one Home Assistant OS VM through HACS on 2026-10-13: UI setup, five entities, synchronization On/Off, global brightness reflected in the bridge portal, profile application, and live 4D frames reaching Hue Entertainment with Streaming status. Original bridge settings were restored after testing. Automated API tests, Home Assistant 2025.12 entity runtime tests and hassfest also pass. This does not establish compatibility with every Home Assistant version or installation.
+The integration uses a dedicated token rather than your portal password or Hue credentials. Its access is limited to state, synchronization, profiles and global brightness.
+
+Communication uses HTTP on the local network. Keep the bridge on a trusted LAN and do not expose its ports to the Internet. Automatic discovery and hosting the bridge as a Home Assistant app/add-on are not currently included.
+
+For the API details, see the bridge's [automation API documentation](https://github.com/Cristef/nanoleaf-hue-bridge/blob/main/docs/AUTOMATION_API.md).
 
 ## License
 
-PolyForm Noncommercial 1.0.0. Commercial use is not granted. This is a community project, unaffiliated with Nanoleaf, Philips Hue or Home Assistant.
+[PolyForm Noncommercial 1.0.0](LICENSE). Commercial use is not granted.
+
+This is a community integration, unaffiliated with Nanoleaf, Philips Hue or Home Assistant.
