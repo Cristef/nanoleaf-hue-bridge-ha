@@ -39,7 +39,7 @@ Revoke tokens in the portal. Home Assistant will request reauthentication. Use R
 
 ## Validation status
 
-Initial experimental version. Automated contract/security tests are provided; validation on a real Home Assistant OS deployment is still pending. Do not interpret a GitHub release as verified compatibility with every Home Assistant version.
+Initial experimental version. Validated on one Home Assistant OS VM through HACS on 2026-10-13: UI setup, five entities, synchronization On/Off, global brightness reflected in the bridge portal, profile application, and live 4D frames reaching Hue Entertainment with Streaming status. Original bridge settings were restored after testing. Automated API tests, Home Assistant 2025.12 entity runtime tests and hassfest also pass. This does not establish compatibility with every Home Assistant version or installation.
 
 ## License
 
