@@ -25,6 +25,13 @@
           "url": "Bridge URL",
           "token": "Automation token"
         }
+      },
+      "zeroconf_confirm": {
+        "title": "Discovered Nanoleaf Hue Bridge",
+        "description": "Bridge found at {url}. Create an automation token in its portal, then enter it here.",
+        "data": {
+          "token": "Automation token"
+        }
       }
     },
     "error": {
@@ -36,7 +43,8 @@
     "abort": {
       "already_configured": "This bridge is already configured.",
       "reauth_successful": "Authentication updated.",
-      "reconfigure_successful": "Configuration updated."
+      "reconfigure_successful": "Configuration updated.",
+      "invalid_discovery": "This discovery announcement is not a supported bridge."
     }
   }
 }

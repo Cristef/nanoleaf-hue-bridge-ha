@@ -24,3 +24,14 @@ class EntityTests(unittest.IsolatedAsyncioTestCase):
  async def test_modules_import_and_reauthentication_steps_exist(self):
   module=importlib.import_module('custom_components.nanoleaf_hue_bridge.config_flow')
   self.assertTrue(hasattr(module.ConfigFlow,'async_step_reauth_confirm'));self.assertTrue(hasattr(module.ConfigFlow,'async_step_reconfigure'))
+
+@unittest.skipUnless(AVAILABLE,'Home Assistant runtime required')
+class DiagnosticsTests(unittest.IsolatedAsyncioTestCase):
+ async def test_allowlisted_diagnostics_remove_token_url_and_names(self):
+  module=importlib.import_module('custom_components.nanoleaf_hue_bridge.diagnostics')
+  result=module.safe_diagnostics({'apiVersion':1,'version':'test','status':'off','token':'secret','id':'private','url':'http://private','profiles':['private room'],'profile':'private room','diagnostics':{'lightCount':2,'token':'secret','hueFrames':8}})
+  self.assertNotIn('secret',str(result));self.assertNotIn('private',str(result));self.assertEqual(result['stream']['lightCount'],2)
+ async def test_invalid_discovery_rejected_without_authentication(self):
+  module=importlib.import_module('custom_components.nanoleaf_hue_bridge.config_flow');flow=module.ConfigFlow()
+  result=await flow.async_step_zeroconf(SimpleNamespace(properties={'id':'not-a-uuid','api':'1'},host='10.0.0.1',port=8080))
+  self.assertEqual(result['reason'],'invalid_discovery')
