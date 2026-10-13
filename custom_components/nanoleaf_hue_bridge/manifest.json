@@ -1,0 +1,14 @@
+{
+  "domain": "nanoleaf_hue_bridge",
+  "name": "Nanoleaf Hue Bridge",
+  "version": "0.1.0",
+  "codeowners": [
+    "@Cristef"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Cristef/nanoleaf-hue-bridge-ha",
+  "issue_tracker": "https://github.com/Cristef/nanoleaf-hue-bridge-ha/issues",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": []
+}

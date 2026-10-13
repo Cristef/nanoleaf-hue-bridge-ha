@@ -1,0 +1,42 @@
+{
+  "title": "Nanoleaf Hue Bridge",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect Nanoleaf Hue Bridge",
+        "description": "Use a dedicated automation token from Setup \u2192 Home Assistant integration in the bridge portal.",
+        "data": {
+          "url": "Bridge URL",
+          "token": "Automation token"
+        }
+      },
+      "reconfigure": {
+        "title": "Connect Nanoleaf Hue Bridge",
+        "description": "Use a dedicated automation token from Setup \u2192 Home Assistant integration in the bridge portal.",
+        "data": {
+          "url": "Bridge URL",
+          "token": "Automation token"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Connect Nanoleaf Hue Bridge",
+        "description": "Use a dedicated automation token from Setup \u2192 Home Assistant integration in the bridge portal.",
+        "data": {
+          "url": "Bridge URL",
+          "token": "Automation token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid or revoked automation token. Create a token in the bridge portal.",
+      "cannot_connect": "Cannot connect. Check the bridge API version and local network access.",
+      "invalid_url": "Enter http://HOST[:PORT] without a path, credentials or query.",
+      "wrong_bridge": "This address belongs to a different bridge."
+    },
+    "abort": {
+      "already_configured": "This bridge is already configured.",
+      "reauth_successful": "Authentication updated.",
+      "reconfigure_successful": "Configuration updated."
+    }
+  }
+}
