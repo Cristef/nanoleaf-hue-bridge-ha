@@ -2,6 +2,14 @@
 
 Experimental custom integration for the standalone [Nanoleaf Hue Bridge](https://github.com/Cristef/nanoleaf-hue-bridge). It controls the Debian bridge; it does not run Sync+ or Hue Entertainment inside Home Assistant.
 
+## Integration preview
+
+The device page groups the three controls—global brightness, saved profile and synchronization—with the stream-status and recent-frame sensors. This screenshot shows a working Sync+ → Hue Entertainment stream on the Home Assistant OS test installation.
+
+![Nanoleaf Hue Bridge controls and sensors in Home Assistant](docs/images/home-assistant-controls.png)
+
+Home Assistant's surrounding interface follows your selected language (Italian in this example); the integration's entity names are English. The firmware shown belongs to the development bridge used for validation; public installations require bridge 4.2.0 or newer. The example profile name and activity history reflect that test installation.
+
 ## Requirements
 
 - Home Assistant 2025.12 or newer.
