@@ -46,11 +46,15 @@ For example, an automation can enable synchronization when the TV turns on, appl
 
 State updates every five seconds. Commands update the controls immediately. Turning synchronization off releases Hue Entertainment; the bulbs remain on with their last color.
 
+## Diagnostics
+
+In Home Assistant, open the bridge device and choose **Download diagnostics** from its menu. The report includes connection status, stream freshness and light/panel counts, without the bridge URL, access token or profile names.
+
 ## Local API
 
 The integration uses a dedicated token rather than your portal password or Hue credentials. Its access is limited to state, synchronization, profiles and global brightness.
 
-Communication uses HTTP on the local network. Keep the bridge on a trusted LAN and do not expose its ports to the Internet. Automatic discovery and hosting the bridge as a Home Assistant app/add-on are not currently included.
+Communication uses HTTP on the local network. Keep the bridge on a trusted LAN and do not expose its ports to the Internet. The development version also supports local discovery and downloadable diagnostics. Discovery requires a bridge version that advertises its service, and normally works within the same LAN. Manual setup remains available across VLANs. Hosting the bridge as a Home Assistant app/add-on is not currently included.
 
 For the API details, see the bridge's [automation API documentation](https://github.com/Cristef/nanoleaf-hue-bridge/blob/main/docs/AUTOMATION_API.md).
 
