@@ -21,6 +21,10 @@ For manual installation, copy `custom_components/nanoleaf_hue_bridge` to `/confi
 
 In the bridge portal, open Setup → Home Assistant integration → Create token. Copy the token when displayed: it is never shown again. In Home Assistant enter the bridge URL (for example `http://nanoleaf-hue.local` or `http://BRIDGE_IP:8080`) and that token. On routed VLANs use the IP if mDNS does not resolve. No automatic discovery is implemented in 0.1.0.
 
+Screenshot from an isolated demonstration (no real tokens or device addresses):
+
+![Token management in the bridge portal](portal-token-setup.png)
+
 ## Entities
 
 - **Synchronization** switch: enables/disables the virtual receiver. Enabled without incoming frames is normal.
