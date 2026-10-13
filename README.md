@@ -60,6 +60,6 @@ For the API details, see the bridge's [automation API documentation](https://git
 
 ## License
 
-[PolyForm Noncommercial 1.0.0](LICENSE). Commercial use is not granted.
+This Home Assistant integration is available under the [MIT License](LICENSE), including commercial use. The separate [Nanoleaf Hue Bridge](https://github.com/Cristef/nanoleaf-hue-bridge) project retains its PolyForm Noncommercial license.
 
 This is a community integration, unaffiliated with Nanoleaf, Philips Hue or Home Assistant.
