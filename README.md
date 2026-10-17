@@ -54,7 +54,7 @@ In Home Assistant, open the bridge device and choose **Download diagnostics** fr
 
 The integration uses a dedicated token rather than your portal password or Hue credentials. Its access is limited to state, synchronization, profiles and global brightness.
 
-Communication uses HTTP on the local network. Keep the bridge on a trusted LAN and do not expose its ports to the Internet. The development version also supports local discovery and downloadable diagnostics. Discovery requires a bridge version that advertises its service, and normally works within the same LAN. Manual setup remains available across VLANs. Hosting the bridge as a Home Assistant app/add-on is not currently included.
+Communication uses HTTP on the local network. Keep the bridge on a trusted LAN and do not expose its ports to the Internet. Local discovery and downloadable diagnostics are included. Discovery requires a bridge version that advertises its service, and normally works within the same LAN. Manual setup remains available across VLANs. Hosting the bridge as a Home Assistant app/add-on is not currently included.
 
 For the API details, see the bridge's [automation API documentation](https://github.com/Cristef/nanoleaf-hue-bridge/blob/main/docs/AUTOMATION_API.md).
 
