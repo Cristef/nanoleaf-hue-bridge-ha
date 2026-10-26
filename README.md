@@ -16,11 +16,13 @@ The integration has been tested on Home Assistant OS. Install the standalone bri
 
 ## Install with HACS
 
-1. Open HACS and add `https://github.com/Cristef/nanoleaf-hue-bridge-ha` as a **custom repository**, with **Integration** as the category.
+1. Open HACS and search for **Nanoleaf Hue Bridge**.
 2. Download the integration and restart Home Assistant.
 3. Go to **Settings → Devices & services → Add integration** and search for **Nanoleaf Hue Bridge**.
 
-For manual installation, copy `custom_components/nanoleaf_hue_bridge` into Home Assistant's `/config/custom_components/` directory and restart.
+The integration is included in the HACS catalog. If it does not appear in your search yet, you can add `https://github.com/Cristef/nanoleaf-hue-bridge-ha` as a **custom repository**, with **Integration** as the category, then follow the steps above.
+
+For manual installation without HACS, copy `custom_components/nanoleaf_hue_bridge` into Home Assistant's `/config/custom_components/` directory and restart.
 
 ## Connect the bridge
 
